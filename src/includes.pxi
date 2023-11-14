@@ -23,8 +23,8 @@ cdef extern from "re2/stringpiece.h" namespace "re2":
         StringPiece(const char *)
         StringPiece(const char *, int)
         const char * data()
-        int copy(char * buf, size_t n, size_t pos)
-        int length()
+        size_t copy(char * buf, size_t n, size_t pos)
+        size_t length()
 
 
 cdef extern from "re2/re2.h" namespace "re2":
@@ -77,7 +77,7 @@ cdef extern from "re2/re2.h" namespace "re2":
     cdef cppclass RE2:
         RE2(const StringPiece pattern, Options option) nogil
         RE2(const StringPiece pattern) nogil
-        int Match(const StringPiece text, int startpos, int endpos,
+        int Match(const StringPiece text, Py_ssize_t startpos, Py_ssize_t endpos,
                 Anchor anchor, StringPiece * match, int nmatch) nogil
         int Replace(cpp_string *str, const RE2 pattern,
                 const StringPiece rewrite) nogil
