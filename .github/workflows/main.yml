@@ -62,7 +62,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: dist-${{ matrix.os }}-${{ matrix.python-version }}
+          name: dist-${{ matrix.os }}
           path: ./wheelhouse/*.whl
 
   build_sdist:
@@ -83,7 +83,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: dist-${{ matrix.os }}-${{ matrix.python-version }}
+          name: dist-source
           path: dist/*.tar.gz
 
   check_artifacts:
