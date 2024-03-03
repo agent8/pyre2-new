@@ -50,7 +50,7 @@ jobs:
           CIBW_BEFORE_ALL_MACOS: >
             brew install re2 pybind11 ninja
           CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=10.15
-          CIBW_REPAIR_WHEEL_COMMAND_MACOS: "pip uninstall -y delocate && pip install git+https://github.com/Chia-Network/delocate.git && delocate-listdeps {wheel} && delocate-wheel -w {dest_dir} -v {wheel}"
+          CIBW_REPAIR_WHEEL_COMMAND_MACOS: "pip uninstall -y delocate && pip install delocate==0.10.2 && delocate-listdeps {wheel} && delocate-wheel -w {dest_dir} -v {wheel}"
           CIBW_BEFORE_ALL_WINDOWS: >
             vcpkg install re2:x64-windows
             && vcpkg integrate install
