@@ -37,7 +37,7 @@ jobs:
 
       - name: Build wheels
         env:
-          CIBW_BUILD: cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* cp312-*
+          CIBW_BUILD: cp37-* cp38-* cp39-* cp310-* cp311-* cp312-*
           CIBW_ARCHS_MACOS: "universal2"
           CIBW_ARCHS_LINUX: "auto64"
           CIBW_ARCHS_WINDOWS: "auto64"
@@ -49,7 +49,7 @@ jobs:
           CIBW_BEFORE_ALL_MACOS: >
             brew install re2 pybind11 ninja
           CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=10.15
-          CIBW_REPAIR_WHEEL_COMMAND_MACOS: "pip uninstall -y delocate && pip install delocate==0.10.2 && delocate-listdeps {wheel} && delocate-wheel -w {dest_dir} -v {wheel}"
+          CIBW_REPAIR_WHEEL_COMMAND_MACOS: "pip uninstall -y delocate && pip install delocate && delocate-listdeps {wheel} && delocate-wheel -w {dest_dir} -v {wheel}"
           CIBW_BEFORE_ALL_WINDOWS: >
             vcpkg install re2:x64-windows
             && vcpkg integrate install

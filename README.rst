@@ -53,7 +53,7 @@ cmake generator.  For example::
 
 For development, get the source::
 
-    $ git clone git://github.com/andreasvc/pyre2.git
+    $ git clone git://github.com/tyteen4a03/pyre2.git
     $ cd pyre2
     $ make install
 
