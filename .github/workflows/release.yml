@@ -10,7 +10,7 @@ jobs:
   cibw_wheels:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os: [ubuntu-22.04, macos-latest, windows-latest]
 
