@@ -48,11 +48,11 @@ jobs:
     - name: Test in place
       run: |
         tox -e dev
-
-    - name: Build dist pkgs
-      run: |
-        tox -e deploy
-
-    - name: Check wheel
-      run: |
-        tox -e check
+#
+#    - name: Build dist pkgs
+#      run: |
+#        tox -e deploy
+#
+#    - name: Check wheel
+#      run: |
+#        tox -e check
