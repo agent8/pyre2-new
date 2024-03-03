@@ -1,3 +1,2 @@
 pytest
-regex
-simplejson
+regex==2022.10.31
