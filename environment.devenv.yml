@@ -1,0 +1,22 @@
+name: pyre2
+
+dependencies:
+  - cmake>=3.18
+  - ninja
+  - ccache
+  - re2
+  - clangxx_osx-64  # [osx]
+  - gxx_linux-64  # [linux]
+  - pybind11-abi
+  - pybind11-stubgen
+  - vs2019_win-64  # [win]
+  - pkgconfig  # [win]
+  - python ={{ get_env("PY_VER", default="3.9") }}
+  - cython
+  - pybind11
+  - pip
+  - pytest
+  - regex
+  # these two need to be newer than broken runner packages, 3.12 only
+  - urllib3
+  - six

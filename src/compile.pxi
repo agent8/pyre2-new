@@ -1,6 +1,6 @@
 
 def compile(pattern, int flags=0, int max_mem=8388608):
-    cachekey = (type(pattern), pattern, flags)
+    cachekey = (type(pattern), pattern, flags, current_notification)
     if cachekey in _cache:
         return _cache[cachekey]
     p = _compile(pattern, flags, max_mem)
@@ -87,7 +87,7 @@ def _compile(object pattern, int flags=0, int max_mem=8388608):
             raise RegexError(error_msg)
         elif error_code not in (ErrorBadPerlOp, ErrorRepeatSize,
                 # ErrorBadEscape,
-                ErrorPatternTooLarge):
+                ErrorRepeatOp, ErrorPatternTooLarge):
             # Raise an error because these will not be fixed by using the
             # ``re`` module.
             raise RegexError(error_msg)

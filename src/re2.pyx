@@ -121,7 +121,26 @@ UNICODE = re.UNICODE
 VERBOSE = re.VERBOSE
 LOCALE = re.LOCALE
 DEBUG = re.DEBUG
+NOFLAG = 0  # Python 3.11
 ASCII = 256  # Python 3
+
+if sys.version_info[:2] >= (3, 11):
+    import enum
+
+    @enum.global_enum
+    @enum._simple_enum(enum.IntFlag, boundary=enum.KEEP)
+    class RegexFlag:
+        NOFLAG = 0
+        ASCII = A = re.ASCII # assume ascii "locale"
+        IGNORECASE = I = re.IGNORECASE # ignore case
+        LOCALE = L = re.LOCALE # assume current 8-bit locale
+        UNICODE = U = re.UNICODE # assume unicode "locale"
+        MULTILINE = M = re.MULTILINE # make anchors look for newline
+        DOTALL = S = re.DOTALL # make dot match newline
+        VERBOSE = X = re.VERBOSE # ignore whitespace and comments
+        DEBUG = re.DEBUG # dump pattern after compilation
+        __str__ = object.__str__
+        _numeric_repr_ = hex
 
 FALLBACK_QUIETLY = 0
 FALLBACK_WARNING = 1
@@ -456,6 +475,7 @@ __all__ = [
         'FALLBACK_EXCEPTION', 'FALLBACK_QUIETLY', 'FALLBACK_WARNING', 'DEBUG',
         'S', 'DOTALL', 'I', 'IGNORECASE', 'L', 'LOCALE', 'M', 'MULTILINE',
         'U', 'UNICODE', 'X', 'VERBOSE', 'VERSION', 'VERSION_HEX',
+        'NOFLAG', 'RegexFlag',
         # classes
         'Match', 'Pattern', 'SREPattern',
         # functions

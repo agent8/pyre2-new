@@ -2,7 +2,7 @@
 #
 # This code sets the following variables:
 #
-#  CYTHON_EXECUTABLE
+#  Cython_EXECUTABLE
 #
 # See also UseCython.cmake
 
@@ -24,21 +24,21 @@
 
 # Use the Cython executable that lives next to the Python executable
 # if it is a local installation.
-find_package( PythonInterp )
-if( PYTHONINTERP_FOUND )
-  get_filename_component( _python_path ${PYTHON_EXECUTABLE} PATH )
-  find_program( CYTHON_EXECUTABLE
+find_package(Python)
+if( Python_FOUND )
+  get_filename_component( _python_path ${Python_EXECUTABLE} PATH )
+  find_program( Cython_EXECUTABLE
     NAMES cython cython.bat cython3
     HINTS ${_python_path}
     )
 else()
-  find_program( CYTHON_EXECUTABLE
+  find_program( Cython_EXECUTABLE
     NAMES cython cython.bat cython3
     )
 endif()
 
 
 include( FindPackageHandleStandardArgs )
-FIND_PACKAGE_HANDLE_STANDARD_ARGS( Cython REQUIRED_VARS CYTHON_EXECUTABLE )
+FIND_PACKAGE_HANDLE_STANDARD_ARGS( Cython REQUIRED_VARS Cython_EXECUTABLE )
 
-mark_as_advanced( CYTHON_EXECUTABLE )
+mark_as_advanced( Cython_EXECUTABLE )

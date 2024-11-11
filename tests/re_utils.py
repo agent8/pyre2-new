@@ -550,8 +550,9 @@ tests = [
 
     # lookbehind: split by : but not if it is escaped by -.
     ('(?<!-):(.*?)(?<!-):', 'a:bc-:de:f', SUCCEED, 'g1', 'bc-:de' ),
-    # escaping with \ as we know it
-    (r'(?<!\\\):(.*?)(?<!\\\):', 'a:bc\\:de:f', SUCCEED, 'g1', 'bc\\:de' ),
+    # escaping with \ as we know it => updated for py311+
+    # by removing one backslash from each set of 3
+    (r'(?<!\\):(.*?)(?<!\\):', 'a:bc\\:de:f', SUCCEED, 'g1', 'bc\\:de' ),
     # terminating with ' and escaping with ? as in edifact
     ("(?<!\\?)'(.*?)(?<!\\?)'", "a'bc?'de'f", SUCCEED, 'g1', "bc?'de" ),
 

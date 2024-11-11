@@ -83,8 +83,10 @@ That being said, there are features of the ``re`` module that this module may
 never have; these will be handled through fallback to the original ``re`` module:
 
 * lookahead assertions ``(?!...)``
-* backreferences (``\\n`` in search pattern)
-* \W and \S not supported inside character classes
+* backreferences, e.g., ``\\1`` in search pattern
+* possessive quantifiers ``*+, ++, ?+, {m,n}+``
+* atomic groups ``(?>...)``
+* ``\W`` and ``\S`` not supported inside character classes
 
 On the other hand, unicode character classes are supported (e.g., ``\p{Greek}``).
 Syntax reference: https://github.com/google/re2/wiki/Syntax

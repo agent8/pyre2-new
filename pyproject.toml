@@ -1,17 +1,24 @@
 [build-system]
 requires = [
     "setuptools>=42",
-    "wheel",
-    "Cython>=3.0.8",
-    "pybind11>=2.11.1",
+    "setuptools_scm[toml]>=6.2",
+    "Cython>=0.20",
+    "pybind11>=2.12",
     "ninja; sys_platform != 'Windows'",
     "cmake>=3.18",
 ]
 
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools_scm]
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 testpaths = [
     "tests",
 ]
+
+[tool.cython-lint]
+max-line-length = 110
+ignore = ['E225','E226','E227','E402','E703','E999']
+# exclude = 'my_project/excluded_cython_file.pyx'

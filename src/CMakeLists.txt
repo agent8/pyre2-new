@@ -12,7 +12,7 @@ file(GLOB cy_srcs *.pyx *.pxi *.h)
 
 # .pyx -> .cpp
 add_custom_command(OUTPUT ${cython_output}
-                   COMMAND ${CYTHON_EXECUTABLE}
+                   COMMAND ${Cython_EXECUTABLE}
                            -a -3
                            --fast-fail
                            --cplus -I ${re2_include_dir}
@@ -21,25 +21,22 @@ add_custom_command(OUTPUT ${cython_output}
                    DEPENDS ${cy_srcs}
                    COMMENT "Cythonizing extension ${cython_src}")
 
-add_library(${cython_module} MODULE ${cython_output})
+pybind11_add_module(${cython_module} MODULE ${cython_output})
 
-set_target_properties(${cython_module}
-                      PROPERTIES PREFIX "${PYTHON_MODULE_PREFIX}"
-                      SUFFIX "${PYTHON_MODULE_EXTENSION}")
-
-target_include_directories(${cython_module} PUBLIC
-                           ${PYTHON_INCLUDE_DIRS})
-
-target_compile_definitions(${cython_module} PRIVATE VERSION_INFO=${SCM_VERSION_INFO})
+target_compile_definitions(
+    ${cython_module} PRIVATE VERSION_INFO=${SCM_VERSION_INFO}
+)
 
 # here we get to jump through some hoops to find libre2 on the manylinux
 # docker CI images, etc
-find_package(re2 CONFIG NAMES re2)
+if(NOT MSVC)
+  find_package(re2 CONFIG NAMES re2)
+endif()
 
 if(re2_FOUND)
   message(STATUS "System re2 found")
   target_link_libraries(${cython_module} PRIVATE re2::re2)
-elseif(NOT MSVC)
+else()
   message(STATUS "Trying PkgConfig")
   find_package(PkgConfig REQUIRED)
   pkg_check_modules(RE2 IMPORTED_TARGET re2)
@@ -57,12 +54,12 @@ endif()
 
 if(APPLE)
   # macos/appleclang needs this
-  target_link_libraries(${cython_module} PRIVATE pybind11::module)
-  target_link_libraries(${cython_module} PRIVATE pybind11::python_link_helper)
+  target_link_libraries(${cython_module} PUBLIC pybind11::module)
+  target_link_libraries(${cython_module} PUBLIC pybind11::python_link_helper)
 endif()
 
 if(MSVC)
-  target_compile_options(${cython_module} PRIVATE /utf-8)
-  target_link_libraries(${cython_module} PRIVATE ${PYTHON_LIBRARIES})
-  target_link_libraries(${cython_module} PRIVATE pybind11::windows_extras)
+  target_compile_options(${cython_module} PUBLIC /utf-8)
+  target_link_libraries(${cython_module} PUBLIC ${Python_LIBRARIES})
+  target_link_libraries(${cython_module} PUBLIC pybind11::windows_extras)
 endif()

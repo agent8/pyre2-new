@@ -1,14 +1,19 @@
 from __future__ import print_function
-try:
-    from test.test_support import verbose
-except ImportError:
-    from test.support import verbose
-import re2 as re
-from re import Scanner
+
 import os
 import sys
 import traceback
 from weakref import proxy
+
+import re2 as re
+from re import Scanner
+
+try:
+    from test import support
+    from test.support import verbose
+except ImportError:  # import error on Windows
+    verbose = re.VERBOSE
+
 if sys.version_info[0] > 2:
     unicode = str
     unichr = chr
@@ -254,11 +259,10 @@ class ReTests(unittest.TestCase):
         # A single group
         m = re.match('(a)', 'a')
         self.assertEqual(m.group(0), 'a')
-        self.assertEqual(m.group(0), 'a')
         self.assertEqual(m.group(1), 'a')
+        self.assertEqual(m.group(0, 0), ('a', 'a'))
         self.assertEqual(m.group(1, 1), ('a', 'a'))
-        self.assertEqual(m[0], 'a')
-        self.assertEqual(m[1], 'a')
+        self.assertEqual(m.groups(), ('a',))
 
         pat = re.compile('(?:(?P<a1>a)|(?P<b2>b))(?P<c3>c)?')
         self.assertEqual(pat.match('a').group(1, 2, 3), ('a', None, None))
@@ -690,9 +694,9 @@ class ReTests(unittest.TestCase):
 
 def test_re_suite():
     try:
-        from tests.re_utils import benchmarks, tests, SUCCEED, FAIL, SYNTAX_ERROR
+        from tests.re_utils import tests, SUCCEED, FAIL, SYNTAX_ERROR
     except ImportError:
-        from re_utils import benchmarks, tests, SUCCEED, FAIL, SYNTAX_ERROR
+        from re_utils import tests, SUCCEED, FAIL, SYNTAX_ERROR
 
     if verbose:
         print('\nRunning test_re_suite ...')
