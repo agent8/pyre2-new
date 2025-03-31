@@ -1,5 +1,5 @@
 {% set name = "pyre2" %}
-{% set version = "0.3.7" %}
+{% set version = "0.3.9" %}
 
 package:
   name: {{ name|lower }}
@@ -41,13 +41,13 @@ test:
     - tests/
 
 about:
-  home: "https://github.com/andreasvc/pyre2"
+  home: "https://github.com/tyteen4a03/pyre2"
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: "Python wrapper for Google's RE2 using Cython"
-  doc_url: "https://github.com/andreasvc/pyre2/blob/master/README.rst"
-  dev_url: "https://github.com/andreasvc/pyre2"
+  doc_url: "https://github.com/tyteen4a03/pyre2/blob/master/README.rst"
+  dev_url: "https://github.com/tyteen4a03/pyre2"
 
 extra:
   recipe-maintainers:
